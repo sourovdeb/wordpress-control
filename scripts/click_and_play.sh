@@ -87,24 +87,30 @@ run_finalizer() {
   bash "$ROOT_DIR/scripts/finalize_setup.sh"
 }
 
+run_postflow_combo() {
+  bash "$ROOT_DIR/scripts/launch_postflow_combo.sh"
+}
+
 main_menu() {
   echo
   echo "Choose action:"
   echo "1) Run final setup check"
-  echo "2) Dry run sample queue"
-  echo "3) Live run sample queue"
-  echo "4) Open WordPress Control workspace"
-  echo "5) Open credentials guide"
-  echo "6) Exit"
-  read -r -p "Select [1-6]: " choice
+  echo "2) Launch PostFlow (HTML + Python background)"
+  echo "3) Dry run sample queue"
+  echo "4) Live run sample queue"
+  echo "5) Open WordPress Control workspace"
+  echo "6) Open credentials guide"
+  echo "7) Exit"
+  read -r -p "Select [1-7]: " choice
 
   case "$choice" in
     1) run_finalizer ;;
-    2) run_dry ;;
-    3) run_live ;;
-    4) open_workspace ;;
-    5) open_guide ;;
-    6) echo "Done." ;;
+    2) run_postflow_combo ;;
+    3) run_dry ;;
+    4) run_live ;;
+    5) open_workspace ;;
+    6) open_guide ;;
+    7) echo "Done." ;;
     *) echo "Invalid choice." ;;
   esac
 }

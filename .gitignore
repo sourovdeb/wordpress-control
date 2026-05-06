@@ -4,3 +4,5 @@ automation/.env
 __pycache__/
 *.pyc
 .DS_Store
+.postflow_http.log
+.postflow_ping.log
