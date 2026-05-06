@@ -1,0 +1,6 @@
+node_modules/
+automation/.venv/
+automation/.env
+__pycache__/
+*.pyc
+.DS_Store

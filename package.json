@@ -7,7 +7,7 @@
   "engines": { "vscode": "^1.85.0" },
   "categories": ["Other"],
   "activationEvents": ["onStartupFinished"],
-  "main": "./src/extension.js",
+  "main": "./extension.js",
   "contributes": {
     "commands": [
       { "command": "wpai.openPanel",    "title": "WP AI: Open Studio"       },

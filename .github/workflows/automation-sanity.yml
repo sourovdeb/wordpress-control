@@ -1,0 +1,19 @@
+name: automation-sanity
+
+on:
+  workflow_dispatch:
+
+jobs:
+  structure-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate automation layout
+        run: |
+          set -euo pipefail
+          test -f automation/main.py
+          test -f automation/requirements.txt
+          test -f automation/wp_autopilot/wordpress.py
+          test -f scripts/setup_automation_env.sh
+          test -f scripts/run_autopilot_dry.sh
