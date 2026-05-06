@@ -5,6 +5,10 @@ PostFlow-style WordPress automation workspace with two parts:
 1. VS Code extension (`extension.js`, `webview.js`) for dashboard/publishing control.
 2. Python automation engine in [automation](automation) for queue ingestion, AI SEO enrichment, scheduling, and WordPress REST publishing.
 
+Setup guide:
+
+- [docs/USER_GUIDE_CREDENTIALS_AND_LOGINS.md](docs/USER_GUIDE_CREDENTIALS_AND_LOGINS.md)
+
 ## Quick Start
 
 1. `git checkout docs/llm-surgical-playbook`
