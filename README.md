@@ -9,13 +9,17 @@ Setup guide:
 
 - [docs/USER_GUIDE_CREDENTIALS_AND_LOGINS.md](docs/USER_GUIDE_CREDENTIALS_AND_LOGINS.md)
 
+Final setup helper:
+
+- `bash scripts/finalize_setup.sh`
+
 ## Quick Start
 
 1. `git checkout docs/llm-surgical-playbook`
 2. `bash scripts/setup_automation_env.sh`
-3. `cp automation/.env.example automation/.env` and set credentials
-4. `bash scripts/run_connection_test.sh`
-5. `bash scripts/run_autopilot_dry.sh`
+3. `bash scripts/finalize_setup.sh`
+4. If the finalizer reports a config problem, edit `automation/.env`
+5. Rerun `bash scripts/finalize_setup.sh` until ping and dry run succeed
 
 ## Automation Commands
 

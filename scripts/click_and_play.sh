@@ -83,22 +83,28 @@ open_guide() {
   fi
 }
 
+run_finalizer() {
+  bash "$ROOT_DIR/scripts/finalize_setup.sh"
+}
+
 main_menu() {
   echo
   echo "Choose action:"
-  echo "1) Dry run sample queue"
-  echo "2) Live run sample queue"
-  echo "3) Open WordPress Control workspace"
-  echo "4) Open credentials guide"
-  echo "5) Exit"
-  read -r -p "Select [1-5]: " choice
+  echo "1) Run final setup check"
+  echo "2) Dry run sample queue"
+  echo "3) Live run sample queue"
+  echo "4) Open WordPress Control workspace"
+  echo "5) Open credentials guide"
+  echo "6) Exit"
+  read -r -p "Select [1-6]: " choice
 
   case "$choice" in
-    1) run_dry ;;
-    2) run_live ;;
-    3) open_workspace ;;
-    4) open_guide ;;
-    5) echo "Done." ;;
+    1) run_finalizer ;;
+    2) run_dry ;;
+    3) run_live ;;
+    4) open_workspace ;;
+    5) open_guide ;;
+    6) echo "Done." ;;
     *) echo "Invalid choice." ;;
   esac
 }
