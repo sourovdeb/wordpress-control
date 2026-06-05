@@ -122,7 +122,7 @@ function getWebviewHTML() {
 
 <div class="topbar">
   <span class="logo">⚡ WP AI Studio</span>
-  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">claude</span>
+  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">deepseek</span>
   <span class="site-badge" id="siteBadge">not connected</span>
   <button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="doStatus()">ping</button>
 </div>
@@ -261,12 +261,12 @@ function getWebviewHTML() {
       <div class="field-row">
         <label>Provider</label>
         <select id="s_provider" onchange="updateProviderUI()">
-          <option value="claude">Claude (Anthropic)</option>
+          <option value="anthropic">Anthropic API</option>
           <option value="deepseek">DeepSeek</option>
           <option value="ollama">Ollama (local)</option>
         </select>
       </div>
-      <div id="s_claudeRow"   class="field-row"><label>Claude API Key</label><input id="s_claudeKey" type="password" placeholder="sk-ant-..." /></div>
+      <div id="s_anthropicRow" class="field-row"><label>Anthropic API Key</label><input id="s_anthropicKey" type="password" placeholder="sk-ant-..." /></div>
       <div id="s_deepseekRow" class="field-row hidden"><label>DeepSeek API Key</label><input id="s_deepseekKey" type="password" placeholder="sk-..." /></div>
       <div id="s_ollamaRow"   class="field-row hidden"><label>Ollama URL</label><input id="s_ollamaUrl" placeholder="http://localhost:11434" /></div>
       <div id="s_modelRow"    class="field-row hidden"><label>Model</label><input id="s_ollamaModel" placeholder="llama3" /></div>
@@ -325,25 +325,25 @@ window.addEventListener('message', e => {
 // ── Settings ──────────────────────────────────────────────────────────────────
 function applySettings(d) {
   if (!d) return;
-  document.getElementById('s_wpUrl').value       = d.wordpressUrl  || '';
-  document.getElementById('s_wpUser').value      = d.wpUser        || '';
-  document.getElementById('s_wpPass').value      = d.wpAppPassword || '';
-  document.getElementById('s_pluginKey').value   = d.pluginKey     || '';
-  document.getElementById('s_provider').value    = d.aiProvider    || 'claude';
-  document.getElementById('s_claudeKey').value   = d.claudeKey     || '';
-  document.getElementById('s_deepseekKey').value = d.deepseekKey   || '';
-  document.getElementById('s_ollamaUrl').value   = d.ollamaUrl     || '';
-  document.getElementById('s_ollamaModel').value = d.ollamaModel   || '';
-  document.getElementById('s_status').value      = d.defaultStatus || 'draft';
-  document.getElementById('s_approval').checked  = d.approvalMode !== false;
-  document.getElementById('providerBadge').textContent = d.aiProvider || 'claude';
+  document.getElementById('s_wpUrl').value        = d.wordpressUrl  || '';
+  document.getElementById('s_wpUser').value       = d.wpUser        || '';
+  document.getElementById('s_wpPass').value       = d.wpAppPassword || '';
+  document.getElementById('s_pluginKey').value    = d.pluginKey     || '';
+  document.getElementById('s_provider').value     = d.aiProvider    || 'deepseek';
+  document.getElementById('s_anthropicKey').value  = d.anthropicKey  || '';
+  document.getElementById('s_deepseekKey').value  = d.deepseekKey   || '';
+  document.getElementById('s_ollamaUrl').value    = d.ollamaUrl     || '';
+  document.getElementById('s_ollamaModel').value  = d.ollamaModel   || '';
+  document.getElementById('s_status').value       = d.defaultStatus || 'draft';
+  document.getElementById('s_approval').checked   = d.approvalMode !== false;
+  document.getElementById('providerBadge').textContent = d.aiProvider || 'deepseek';
   if (d.wordpressUrl) document.getElementById('siteBadge').textContent = new URL(d.wordpressUrl).hostname;
   updateProviderUI();
 }
 
 function updateProviderUI() {
   const p = document.getElementById('s_provider').value;
-  document.getElementById('s_claudeRow').classList.toggle('hidden',   p !== 'claude');
+  document.getElementById('s_anthropicRow').classList.toggle('hidden', p !== 'anthropic');
   document.getElementById('s_deepseekRow').classList.toggle('hidden', p !== 'deepseek');
   document.getElementById('s_ollamaRow').classList.toggle('hidden',   p !== 'ollama');
   document.getElementById('s_modelRow').classList.toggle('hidden',    p !== 'ollama');
@@ -356,7 +356,7 @@ function saveSettings() {
     wpAppPassword: document.getElementById('s_wpPass').value.trim(),
     pluginKey:     document.getElementById('s_pluginKey').value.trim(),
     aiProvider:    document.getElementById('s_provider').value,
-    claudeKey:     document.getElementById('s_claudeKey').value.trim(),
+    anthropicKey:  document.getElementById('s_anthropicKey').value.trim(),
     deepseekKey:   document.getElementById('s_deepseekKey').value.trim(),
     ollamaUrl:     document.getElementById('s_ollamaUrl').value.trim(),
     ollamaModel:   document.getElementById('s_ollamaModel').value.trim(),
