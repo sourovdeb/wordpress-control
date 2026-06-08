@@ -15,7 +15,6 @@ function activate(context) {
         })
     );
 
-    // Auto-open on startup if configured
     const cfg = vscode.workspace.getConfiguration('wpai');
     if (cfg.get('wordpressUrl')) openStudio(context);
 }
@@ -32,7 +31,6 @@ function openStudio(context) {
 
     panel.webview.html = getWebviewHTML();
 
-    // Message handler: webview → extension
     panel.webview.onDidReceiveMessage(async msg => {
         switch (msg.cmd) {
             case 'save_settings': saveSettings(msg.data); break;
@@ -48,8 +46,6 @@ function openStudio(context) {
     }, undefined, context.subscriptions);
 
     panel.onDidDispose(() => { panel = null; });
-
-    // Send current settings to webview once loaded
     setTimeout(sendSettings, 300);
 }
 
@@ -203,7 +199,7 @@ async function callAI(systemPrompt, userPrompt) {
                     'content-type': 'application/json',
                 },
                 body: JSON.stringify({
-                    model: 'claude-sonnet-4-20250514',
+                    model: 'claude-sonnet-4-5',
                     max_tokens: 2000,
                     system: systemPrompt,
                     messages: [{ role: 'user', content: userPrompt }],
@@ -273,7 +269,6 @@ Return this exact JSON structure:
 
     try {
         let raw = await callAI(system, user);
-        // Strip markdown code fences if present
         raw = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
         const post = JSON.parse(raw);
         log('info', `✓ Generated: "${post.title}"`);
@@ -313,7 +308,7 @@ Be concise and practical. When suggesting posts, format them clearly.`;
                     'content-type': 'application/json',
                 },
                 body: JSON.stringify({
-                    model: 'claude-sonnet-4-20250514',
+                    model: 'claude-sonnet-4-5',
                     max_tokens: 1000,
                     system,
                     messages,
