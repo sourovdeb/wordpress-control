@@ -122,7 +122,7 @@ function getWebviewHTML() {
 
 <div class="topbar">
   <span class="logo">⚡ WP AI Studio</span>
-  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">claude</span>
+  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">ollama</span>
   <span class="site-badge" id="siteBadge">not connected</span>
   <button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="doStatus()">ping</button>
 </div>
@@ -184,7 +184,7 @@ function getWebviewHTML() {
 
     <div class="divider"></div>
 
-    <!-- Review area — shown after generation -->
+    <!-- Review area -->
     <div id="reviewArea" class="hidden">
       <div class="review-card">
         <h3 id="reviewTitle"></h3>
@@ -261,15 +261,15 @@ function getWebviewHTML() {
       <div class="field-row">
         <label>Provider</label>
         <select id="s_provider" onchange="updateProviderUI()">
-          <option value="claude">Claude (Anthropic)</option>
-          <option value="deepseek">DeepSeek</option>
-          <option value="ollama">Ollama (local)</option>
+          <option value="ollama">Ollama (local — free)</option>
+          <option value="deepseek">DeepSeek (cheapest API)</option>
+          <option value="anthropic">Anthropic API</option>
         </select>
       </div>
-      <div id="s_claudeRow"   class="field-row"><label>Claude API Key</label><input id="s_claudeKey" type="password" placeholder="sk-ant-..." /></div>
-      <div id="s_deepseekRow" class="field-row hidden"><label>DeepSeek API Key</label><input id="s_deepseekKey" type="password" placeholder="sk-..." /></div>
-      <div id="s_ollamaRow"   class="field-row hidden"><label>Ollama URL</label><input id="s_ollamaUrl" placeholder="http://localhost:11434" /></div>
-      <div id="s_modelRow"    class="field-row hidden"><label>Model</label><input id="s_ollamaModel" placeholder="llama3" /></div>
+      <div id="s_anthropicRow" class="field-row hidden"><label>Anthropic API Key</label><input id="s_anthropicKey" type="password" placeholder="sk-ant-..." /></div>
+      <div id="s_deepseekRow"  class="field-row hidden"><label>DeepSeek API Key</label><input id="s_deepseekKey" type="password" placeholder="sk-..." /></div>
+      <div id="s_ollamaRow"    class="field-row"><label>Ollama URL</label><input id="s_ollamaUrl" placeholder="http://localhost:11434" /></div>
+      <div id="s_modelRow"     class="field-row"><label>Model</label><input id="s_ollamaModel" placeholder="mistral" /></div>
     </div>
 
     <div class="settings-group">
@@ -303,7 +303,7 @@ function switchTab(id) {
     t.classList.toggle('active', ids[i] === id);
   });
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(`view-${id}`).classList.add('active');
+  document.getElementById('view-'+id).classList.add('active');
   if (id === 'posts') loadPosts();
 }
 
@@ -317,7 +317,7 @@ window.addEventListener('message', e => {
   if (cmd === 'review_post')   showReview(data);
   if (cmd === 'generating')    { setGenBusy(true); appendLog({level:'info', message:'Generating: ' + data.topic, time: now()}); }
   if (cmd === 'generate_error'){ setGenBusy(false); appendLog({level:'error', message: data.error, time: now()}); }
-  if (cmd === 'post_created')  { appendLog({level:'ok', message:`✓ Post created ID:${data.id}`, time: now()}); }
+  if (cmd === 'post_created')  { appendLog({level:'ok', message:'✓ Post created ID:'+data.id, time: now()}); }
   if (cmd === 'chat_reply')    { appendChatMsg('ai', data.reply); setChatBusy(false); }
   if (cmd === 'run_status')    doStatus();
 });
@@ -325,28 +325,28 @@ window.addEventListener('message', e => {
 // ── Settings ──────────────────────────────────────────────────────────────────
 function applySettings(d) {
   if (!d) return;
-  document.getElementById('s_wpUrl').value       = d.wordpressUrl  || '';
-  document.getElementById('s_wpUser').value      = d.wpUser        || '';
-  document.getElementById('s_wpPass').value      = d.wpAppPassword || '';
-  document.getElementById('s_pluginKey').value   = d.pluginKey     || '';
-  document.getElementById('s_provider').value    = d.aiProvider    || 'claude';
-  document.getElementById('s_claudeKey').value   = d.claudeKey     || '';
-  document.getElementById('s_deepseekKey').value = d.deepseekKey   || '';
-  document.getElementById('s_ollamaUrl').value   = d.ollamaUrl     || '';
-  document.getElementById('s_ollamaModel').value = d.ollamaModel   || '';
-  document.getElementById('s_status').value      = d.defaultStatus || 'draft';
-  document.getElementById('s_approval').checked  = d.approvalMode !== false;
-  document.getElementById('providerBadge').textContent = d.aiProvider || 'claude';
+  document.getElementById('s_wpUrl').value        = d.wordpressUrl  || '';
+  document.getElementById('s_wpUser').value       = d.wpUser        || '';
+  document.getElementById('s_wpPass').value       = d.wpAppPassword || '';
+  document.getElementById('s_pluginKey').value    = d.pluginKey     || '';
+  document.getElementById('s_provider').value     = d.aiProvider    || 'ollama';
+  document.getElementById('s_anthropicKey').value = d.anthropicKey  || '';
+  document.getElementById('s_deepseekKey').value  = d.deepseekKey   || '';
+  document.getElementById('s_ollamaUrl').value    = d.ollamaUrl     || '';
+  document.getElementById('s_ollamaModel').value  = d.ollamaModel   || '';
+  document.getElementById('s_status').value       = d.defaultStatus || 'draft';
+  document.getElementById('s_approval').checked   = d.approvalMode !== false;
+  document.getElementById('providerBadge').textContent = d.aiProvider || 'ollama';
   if (d.wordpressUrl) document.getElementById('siteBadge').textContent = new URL(d.wordpressUrl).hostname;
   updateProviderUI();
 }
 
 function updateProviderUI() {
   const p = document.getElementById('s_provider').value;
-  document.getElementById('s_claudeRow').classList.toggle('hidden',   p !== 'claude');
-  document.getElementById('s_deepseekRow').classList.toggle('hidden', p !== 'deepseek');
-  document.getElementById('s_ollamaRow').classList.toggle('hidden',   p !== 'ollama');
-  document.getElementById('s_modelRow').classList.toggle('hidden',    p !== 'ollama');
+  document.getElementById('s_anthropicRow').classList.toggle('hidden', p !== 'anthropic');
+  document.getElementById('s_deepseekRow').classList.toggle('hidden',  p !== 'deepseek');
+  document.getElementById('s_ollamaRow').classList.toggle('hidden',    p !== 'ollama');
+  document.getElementById('s_modelRow').classList.toggle('hidden',     p !== 'ollama');
 }
 
 function saveSettings() {
@@ -356,7 +356,7 @@ function saveSettings() {
     wpAppPassword: document.getElementById('s_wpPass').value.trim(),
     pluginKey:     document.getElementById('s_pluginKey').value.trim(),
     aiProvider:    document.getElementById('s_provider').value,
-    claudeKey:     document.getElementById('s_claudeKey').value.trim(),
+    anthropicKey:  document.getElementById('s_anthropicKey').value.trim(),
     deepseekKey:   document.getElementById('s_deepseekKey').value.trim(),
     ollamaUrl:     document.getElementById('s_ollamaUrl').value.trim(),
     ollamaModel:   document.getElementById('s_ollamaModel').value.trim(),
@@ -376,7 +376,7 @@ function applyStatus(d) {
   document.getElementById('statWP').textContent    = d.wp_version || '—';
   document.getElementById('statPosts').textContent = d.total_posts ?? '—';
   document.getElementById('statSched').textContent = d.scheduled_posts ?? '—';
-  appendLog({level:'ok', message:`Connected: ${d.site} | WP ${d.wp_version}`, time: now()});
+  appendLog({level:'ok', message:'Connected: '+d.site+' | WP '+d.wp_version, time: now()});
   document.getElementById('siteBadge').textContent = d.site || 'connected';
   document.getElementById('siteBadge').style.color = 'var(--green)';
 }
@@ -402,12 +402,12 @@ function setGenBusy(b) {
 function showReview(post) {
   setGenBusy(false);
   currentPost = post;
-  document.getElementById('reviewTitle').textContent   = post.title;
+  document.getElementById('reviewTitle').textContent    = post.title;
   document.getElementById('reviewSeoTitle').textContent = 'SEO: ' + (post.seo_title || post.title);
-  document.getElementById('reviewMeta').textContent    = post.meta_desc || '';
-  document.getElementById('reviewContent').innerHTML   = post.content || '';
+  document.getElementById('reviewMeta').textContent     = post.meta_desc || '';
+  document.getElementById('reviewContent').innerHTML    = post.content || '';
   const tagDiv = document.getElementById('reviewTags');
-  tagDiv.innerHTML = (post.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+  tagDiv.innerHTML = (post.tags || []).map(t => '<span class="tag">'+t+'</span>').join('');
   document.getElementById('reviewArea').classList.remove('hidden');
   document.getElementById('schedulerRow').classList.add('hidden');
   switchTab('generate');
@@ -441,15 +441,13 @@ function loadPosts() {
 function renderPosts(posts) {
   const el = document.getElementById('postsList');
   if (!posts.length) { el.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center;">No posts found</div>'; return; }
-  el.innerHTML = posts.map(p => `
-    <div class="post-item">
-      <span class="badge badge-${p.status}">${p.status}</span>
-      <span class="title" title="${p.title}">${p.title}</span>
-      <span style="color:var(--muted);font-size:11px;flex-shrink:0;">${p.scheduled.slice(0,10)}</span>
-      <button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="deletePost(${p.id})">✕</button>
-      <a href="${p.link}" style="color:var(--accent);font-size:11px;" title="View">↗</a>
-    </div>
-  `).join('');
+  el.innerHTML = posts.map(p => '<div class="post-item">'
+    + '<span class="badge badge-'+p.status+'">'+p.status+'</span>'
+    + '<span class="title" title="'+p.title+'">'+p.title+'</span>'
+    + '<span style="color:var(--muted);font-size:11px;flex-shrink:0;">'+p.scheduled.slice(0,10)+'</span>'
+    + '<button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="deletePost('+p.id+')">✕</button>'
+    + '<a href="'+p.link+'" style="color:var(--accent);font-size:11px;" title="View">↗</a>'
+    + '</div>').join('');
 }
 
 function deletePost(id) {
@@ -473,7 +471,7 @@ function chatKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault()
 function appendChatMsg(role, text) {
   const div = document.createElement('div');
   div.className = 'msg ' + role;
-  div.innerHTML = `<div class="msg-avatar">${role === 'user' ? '👤' : '🤖'}</div><div class="msg-bubble">${escHtml(text)}</div>`;
+  div.innerHTML = '<div class="msg-avatar">'+(role==='user'?'👤':'🤖')+'</div><div class="msg-bubble">'+escHtml(text)+'</div>';
   const box = document.getElementById('chatMessages');
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
@@ -487,7 +485,7 @@ function appendLog(entry) {
   const el = document.getElementById('logsPanel');
   const div = document.createElement('div');
   div.className = 'log-line ' + (entry.level || 'info');
-  div.innerHTML = `<span class="log-time">${entry.time}</span><span class="log-msg">${escHtml(entry.message)}</span>`;
+  div.innerHTML = '<span class="log-time">'+entry.time+'</span><span class="log-msg">'+escHtml(entry.message)+'</span>';
   el.appendChild(div);
   el.scrollTop = el.scrollHeight;
 }
@@ -497,7 +495,6 @@ function clearLogs() { document.getElementById('logsPanel').innerHTML = ''; }
 function now() { return new Date().toLocaleTimeString(); }
 function escHtml(t) { return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// Init
 vscode.postMessage({ cmd: 'load_settings' });
 </script>
 </body>
