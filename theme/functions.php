@@ -118,18 +118,19 @@ class CalmFocus_Dynamic_Menu {
 
     /**
      * Category slug => Exact menu item title it should appear under.
+     * Pipe-separate slugs (e.g. 'philosophy|mental-health') to pull from multiple categories.
      * This is your single source of truth — edit freely.
      */
     private $category_to_menu_map = [
-        'english-lessons'          => 'English Lessons',
-        'personal-blogs'           => 'Personal Blogs',
-        'europe-travel'            => 'Europe Travel',
-        'books-ideas'              => 'Books & Ideas',
-        'photo-software'           => 'Photography & Software',
-        'creator-life'             => 'Creator & Life',
-        'philosophy-mental-health' => 'Philosophy & Mental Health',
-        'resources'                => 'Resources',
-        'tutorials'                => 'Tutorials',
+        'english-teaching'                => 'English Lessons',
+        'personal-blogs'                  => 'Personal Blogs',
+        'travel-journal'                  => 'Europe Travel',
+        'books-ideas'                     => 'Books & Ideas',
+        'photography-software'            => 'Photography & Software',
+        'creator-life'                    => 'Creator & Life',
+        'philosophy|mental-health'        => 'Philosophy & Mental Health',
+        'resources'                       => 'Resources',
+        'career-professional-development' => 'Tutorials',
     ];
 
     /** How many recent posts to show under each parent */
@@ -183,6 +184,21 @@ class CalmFocus_Dynamic_Menu {
     }
 
     private function get_recent_posts_for_category( $category_slug ) {
+        if ( strpos( $category_slug, '|' ) !== false ) {
+            $slugs = explode( '|', $category_slug );
+            $posts = [];
+            foreach ( $slugs as $slug ) {
+                $posts = array_merge( $posts, get_posts( [
+                    'category_name'  => trim( $slug ),
+                    'posts_per_page' => $this->posts_per_category,
+                    'post_status'    => 'publish',
+                    'orderby'        => 'date',
+                    'order'          => 'DESC',
+                ] ) );
+            }
+            usort( $posts, fn( $a, $b ) => strcmp( $b->post_date, $a->post_date ) );
+            return array_slice( array_unique( $posts, SORT_REGULAR ), 0, $this->posts_per_category );
+        }
         return get_posts( [
             'category_name'  => $category_slug,
             'posts_per_page' => $this->posts_per_category,
@@ -223,10 +239,13 @@ class CalmFocus_Dynamic_Menu {
 
         $categories = wp_get_post_categories( $post_id, [ 'fields' => 'slugs' ] );
 
-        foreach ( $categories as $cat_slug ) {
-            if ( isset( $this->category_to_menu_map[ $cat_slug ] ) ) {
-                delete_transient( 'calmfocus_dynamic_menu_' . md5( serialize( $this->category_to_menu_map ) ) );
-                break;
+        foreach ( $this->category_to_menu_map as $map_key => $mapped_title ) {
+            $map_slugs = array_map( 'trim', explode( '|', $map_key ) );
+            foreach ( $categories as $cat_slug ) {
+                if ( in_array( $cat_slug, $map_slugs, true ) ) {
+                    delete_transient( 'calmfocus_dynamic_menu_' . md5( serialize( $this->category_to_menu_map ) ) );
+                    return;
+                }
             }
         }
     }
