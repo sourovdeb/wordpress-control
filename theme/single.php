@@ -18,10 +18,8 @@ get_header();
 
     <article id="post-<?php the_ID(); ?>" <?php post_class('calmfocus-single'); ?> style="max-width: 780px; margin: 0 auto; padding: 50px 20px;">
 
-        <!-- Post Header -->
         <header class="entry-header" style="margin-bottom: 40px; border-bottom: 1px solid var(--wp--preset--color--border); padding-bottom: 30px;">
             <?php the_title( '<h1 class="entry-title" style="font-size: 36px; line-height: 1.3; margin-bottom: 16px;">', '</h1>' ); ?>
-
             <div class="entry-meta" style="font-size: 15px; color: var(--wp--preset--color--text-secondary);">
                 <?php echo get_the_date(); ?>
                 <?php if ( has_category() ) : ?>
@@ -36,12 +34,10 @@ get_header();
             </div>
         <?php endif; ?>
 
-        <!-- Main Content -->
         <div class="entry-content" style="font-size: 18px; line-height: 1.75;">
             <?php the_content(); ?>
         </div>
 
-        <!-- Tags -->
         <?php if ( has_tag() ) : ?>
             <footer class="entry-footer" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--wp--preset--color--border);">
                 <div style="font-size: 15px; color: var(--wp--preset--color--text-secondary);">
@@ -49,6 +45,27 @@ get_header();
                 </div>
             </footer>
         <?php endif; ?>
+
+        <!-- YouTube + Connect CTA -->
+        <aside style="margin-top: 48px; padding: 24px 28px; border: 1px solid var(--wp--preset--color--border); border-radius: 10px; background: var(--wp--preset--color--background, #f9f9f9);">
+            <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <strong style="font-size: 16px; display: block; margin-bottom: 4px;">Treasure Hunters Digital</strong>
+                    <span style="font-size: 14px; color: var(--wp--preset--color--text-secondary);">English teaching, language learning &amp; multilingual life in La R&eacute;union.</span>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="https://www.youtube.com/@TreasureHuntersDigital" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; background: #FF0000; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600;">
+                        &#9654; YouTube
+                    </a>
+                    <a href="https://wa.me/262693846168" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; background: #25D366; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600;">
+                        WhatsApp
+                    </a>
+                    <a href="mailto:sourovdeb.is@gmail.com" style="display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; background: var(--wp--preset--color--primary, #333); color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600;">
+                        Email
+                    </a>
+                </div>
+            </div>
+        </aside>
 
         <!-- Related Posts -->
         <?php
@@ -64,7 +81,7 @@ get_header();
             ] );
             if ( $related ) :
         ?>
-        <section class="related-posts" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--wp--preset--color--border);">
+        <section class="related-posts" style="margin-top: 48px; padding-top: 30px; border-top: 1px solid var(--wp--preset--color--border);">
             <h3 style="font-size: 20px; margin-bottom: 20px;">More from this section</h3>
             <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
                 <?php foreach ( $related as $rpost ) : ?>
