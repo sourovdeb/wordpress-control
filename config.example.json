@@ -1,0 +1,16 @@
+{
+  "wp_url":       "https://your-site.com",
+  "plugin_key":   "your-plugin-secret-key",
+  "ai_provider":  "claude",
+  "claude_key":   "sk-ant-...",
+  "deepseek_key": "",
+  "categories": [
+    "ELT Masterclass",
+    "ELT",
+    "CELTA",
+    "Job Hunting",
+    "AI Tools",
+    "Teaching Resources",
+    "Personal"
+  ]
+}

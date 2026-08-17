@@ -1,0 +1,42 @@
+Category,Name,What it does,Type,Cost,Link or File,Setup time,Notes
+WP Publishing,Python Desktop App,"GUI: type topic or paste content, AI auto-fills tags/category/SEO, publish or schedule",Tool,Free,tools/wp-desktop.py,5 min,"Easiest. Two modes: AI writes, or you write + auto-SEO"
+WP Publishing,Google Sheets Publisher,"Add a row, set Status=READY, auto-publishes hourly with AI SEO",Tool,Free,tools/sheets-publisher.js,15 min,Most forgiving for bad days. Runs on a timer
+WP Publishing,GitHub Actions,"Push a posts/*.md file, it auto-publishes to WordPress",Tool,Free,.github/workflows/wp-publish.yml,10 min,"Write markdown, git push, done"
+WP Publishing,Logseq Bridge,"Export a Logseq page, one command publishes it",Tool,Free,tools/logseq-bridge.py,10 min,For Logseq writers
+WP Publishing,Markdown Publisher,Publishes posts/*.md files with YAML frontmatter,Tool,Free,tools/publish-from-markdown.py,5 min,Backend for GitHub Actions; also standalone
+WP Publishing,VS Code Extension,"AI panel inside VS Code: chat, generate, publish",Tool,Free,extension.js + webview.js,10 min,For developers who live in VS Code
+WP Publishing,Management CLI,"Check status, list scheduled posts, verify plugins, create drafts",Tool,Free,tools/wp-manage.py,2 min,python tools/wp-manage.py status
+WP Publishing,Taxonomy Fixer,Fixes malformed tags and category assignment,Tool,Free,tools/wp-fix-taxonomy.py,2 min,python tools/wp-fix-taxonomy.py status
+Guide,README,Overview of all 6 publishing methods,Doc,Free,README.md,5 min read,Start here
+Guide,CSV + Sheets + Apps Script Tutorial,"Explains how CSV, Google Sheets, and JavaScript automation work, and why",Doc,Free,TUTORIAL_CSV_SHEETS_APPSCRIPT.md,45 min read,CORE understanding. Most important guide
+Guide,Free AI Tools Guide,"Use Claude, ChatGPT, Mistral, Ollama for $0",Doc,Free,FREE_AI_TOOLS_GUIDE.md,20 min read,How to never pay for AI
+Guide,Mental Health Automation Tools,GitHub tools for bipolar/depression/ADHD,Doc,Free,MENTAL_HEALTH_AUTOMATION_TOOLS.md,20 min read,"10 categories, neurodivergent-friendly"
+Guide,Media Tools Guide,"Free audio, video, banner software",Doc,Free,MEDIA_TOOLS_GUIDE.md,25 min read,"Audacity, OBS, DaVinci, Canva, GIMP"
+Guide,Master Index,Navigation for all guides and tools,Doc,Free,INDEX_MASTER.md,10 min read,Your map when overwhelmed
+Guide,Completion Summary,"What is done, what needs manual setup",Doc,Free,COMPLETION_SUMMARY.md,10 min read,Status + next steps
+Mental Health,Loop Habit Tracker,"Minimal habit tracking (meds, routine)",App,Free,github.com/iSoron/loop_habit_tracker,2 min,"Ultra-simple, works offline"
+Mental Health,Habitica,Turns habits into an RPG game,App,Free,github.com/HabitRPG/habitica,10 min,"Gamified, reduces shame"
+Mental Health,MindYou,Daily mood and emotion journal,App,Free,github.com/Inzpire/MindYou,10 min,Spot mood patterns
+Mental Health,MyMeds,Medication reminder and tracking,App,Free,github.com/Rishi-D/MyMeds,15 min,Never miss a dose
+Mental Health,Sleep Journal,Track sleep duration and quality,App,Free,github.com/andrew-d/sleep-journal,5 min,Correlate sleep with mood
+Mental Health,Pomofocus,"Pomodoro timer (25 min work, 5 min break)",App,Free,github.com/roldanjr/pom-pom,2 min,Breaks overwhelm into chunks
+Mental Health,Joplin,Open-source Notion/notes alternative,App,Free,joplinapp.org,10 min,"Private, offline, self-hostable"
+Mental Health,Nextcloud,Self-hosted cloud (own your data),App,Free,github.com/nextcloud/server,60 min,Private mental-health data storage
+Free AI,Claude.ai,Best for analysis and writing,AI,Free tier / $20mo,claude.ai,2 min,3-20 messages/day free
+Free AI,ChatGPT,"Unlimited conversations, brainstorming",AI,Free tier / $20mo,chat.openai.com,2 min,Good free tier
+Free AI,Mistral,"Fast API, great free tier for automation",AI,Free 5000/mo,console.mistral.ai,5 min,Use inside your scripts
+Free AI,Ollama,"Runs AI locally, private, offline",AI,Free,ollama.ai,15 min,"Truly free, no API cost, private"
+Free AI,Google Gemini,Integrated with Gmail and Docs,AI,Free tier,gemini.google.com,1 min,Already in your Google account
+Audio,Audacity,"Record and edit audio, remove noise",Software,Free,audacityteam.org,5 min,Podcast + voiceover tool
+Audio,LMMS,Create royalty-free background music,Software,Free,lmms.io,15 min,Make your own BGM
+Audio,MuseScore,Compose and notate music,Software,Free,musescore.org,20 min,Advanced music composition
+Video,OBS Studio,Screen + webcam recording,Software,Free,obsproject.com,10 min,Record lessons and tutorials
+Video,DaVinci Resolve,Professional video editing,Software,Free,blackmagicdesign.com,30 min,"Hollywood-grade, free version"
+Video,Shotcut,Simple video editing,Software,Free,shotcut.org,20 min,Easier alternative to DaVinci
+Design,Canva,"Drag-drop banners, thumbnails",Software,Free tier,canva.com,5 min,"Easiest, browser-based"
+Design,GIMP,"Photoshop alternative, photo editing",Software,Free,gimp.org,20 min,Powerful image editor
+Design,Inkscape,"Vector graphics, logo design",Software,Free,inkscape.org,30 min,Logos that scale to any size
+WP Site,Site status,"All 4 plugins active, 0 stuck posts",Info,-,sourovdeb.com/wp-json/sourov/v1/status,-,Verified working
+WP Site,Draft: Tools Reference,Auto-created draft post (ID 164),Info,-,wp-admin > Posts > Drafts,-,Review then publish
+WP Site,Draft: Complaint Guidelines,Auto-created draft post (ID 165),Info,-,wp-admin > Posts > Drafts,-,Review then publish
+WP Site,GitHub repo,All code and guides,Info,-,github.com/sourovdeb/wordpress-control,-,"Branch: claude/elegant-wozniak-hqLya, PR #1"
