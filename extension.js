@@ -15,7 +15,6 @@ function activate(context) {
         })
     );
 
-    // Auto-open on startup if configured
     const cfg = vscode.workspace.getConfiguration('wpai');
     if (cfg.get('wordpressUrl')) openStudio(context);
 }
@@ -32,7 +31,6 @@ function openStudio(context) {
 
     panel.webview.html = getWebviewHTML();
 
-    // Message handler: webview → extension
     panel.webview.onDidReceiveMessage(async msg => {
         switch (msg.cmd) {
             case 'save_settings': saveSettings(msg.data); break;
@@ -48,8 +46,6 @@ function openStudio(context) {
     }, undefined, context.subscriptions);
 
     panel.onDidDispose(() => { panel = null; });
-
-    // Send current settings to webview once loaded
     setTimeout(sendSettings, 300);
 }
 
@@ -67,7 +63,7 @@ function sendSettings() {
             wpAppPassword: c.get('wpAppPassword'),
             pluginKey:     c.get('pluginKey'),
             aiProvider:    c.get('aiProvider'),
-            claudeKey:     c.get('claudeKey'),
+            anthropicKey:  c.get('anthropicKey'),
             deepseekKey:   c.get('deepseekKey'),
             ollamaUrl:     c.get('ollamaUrl'),
             ollamaModel:   c.get('ollamaModel'),
@@ -194,11 +190,11 @@ async function callAI(systemPrompt, userPrompt) {
     try {
         const fetch = (await import('node-fetch')).default;
 
-        if (provider === 'claude') {
+        if (provider === 'anthropic') {
             const res = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
                 headers: {
-                    'x-api-key': c.get('claudeKey'),
+                    'x-api-key': c.get('anthropicKey'),
                     'anthropic-version': '2023-06-01',
                     'content-type': 'application/json',
                 },
@@ -273,7 +269,6 @@ Return this exact JSON structure:
 
     try {
         let raw = await callAI(system, user);
-        // Strip markdown code fences if present
         raw = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
         const post = JSON.parse(raw);
         log('info', `✓ Generated: "${post.title}"`);
@@ -304,11 +299,11 @@ Be concise and practical. When suggesting posts, format them clearly.`;
         const fetch = (await import('node-fetch')).default;
         let reply = '';
 
-        if (c.get('aiProvider') === 'claude') {
+        if (c.get('aiProvider') === 'anthropic') {
             const res = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
                 headers: {
-                    'x-api-key': c.get('claudeKey'),
+                    'x-api-key': c.get('anthropicKey'),
                     'anthropic-version': '2023-06-01',
                     'content-type': 'application/json',
                 },

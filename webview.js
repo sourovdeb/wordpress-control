@@ -26,23 +26,19 @@ function getWebviewHTML() {
   }
   body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; font-size: 13px; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-  /* ── Top bar ── */
   .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 8px 12px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .topbar .logo { font-weight: 700; color: var(--accent2); font-size: 14px; flex: 1; }
   .provider-badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 10px; font-size: 11px; color: var(--green); cursor: pointer; }
   .site-badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 10px; font-size: 11px; color: var(--muted); }
 
-  /* ── Tab nav ── */
   .tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
   .tab { padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--muted); font-size: 12px; transition: all 0.15s; }
   .tab:hover { color: var(--text); }
   .tab.active { color: var(--text); border-bottom-color: var(--accent2); }
 
-  /* ── Content areas ── */
   .view { display: none; flex: 1; overflow: hidden; flex-direction: column; }
   .view.active { display: flex; }
 
-  /* ── Chat ── */
   .chat-messages { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
   .msg { display: flex; gap: 8px; }
   .msg.user { flex-direction: row-reverse; }
@@ -56,7 +52,6 @@ function getWebviewHTML() {
   .chat-input-row textarea { flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 8px; font-size: 13px; resize: none; height: 60px; font-family: inherit; }
   .chat-input-row textarea:focus { outline: none; border-color: var(--accent); }
 
-  /* ── Generate ── */
   .generate-panel { padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
   .field-row { display: flex; flex-direction: column; gap: 4px; }
   .field-row label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -72,14 +67,12 @@ function getWebviewHTML() {
   .btn-danger   { background: #6e2020;        color: var(--red); }
   .btn-ghost    { background: transparent; color: var(--text); border: 1px solid var(--border); }
 
-  /* ── Review card ── */
   .review-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
   .review-card h3 { color: var(--yellow); font-size: 14px; }
   .review-card .meta { font-size: 11px; color: var(--muted); }
   .content-preview { max-height: 200px; overflow-y: auto; background: var(--bg); border-radius: 4px; padding: 10px; font-size: 12px; line-height: 1.6; }
   .content-preview h2 { color: var(--yellow); font-size: 13px; margin: 8px 0 4px; }
 
-  /* ── Posts list ── */
   .posts-panel { padding: 12px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
   .post-item { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
   .post-item .title { flex: 1; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -88,7 +81,6 @@ function getWebviewHTML() {
   .badge-future   { background: #003a1a; color: var(--green); }
   .badge-publish  { background: #003a2a; color: #7ee8a2; }
 
-  /* ── Logs ── */
   .logs-panel { padding: 10px 12px; overflow-y: auto; flex: 1; font-family: 'Cascadia Code', 'Courier New', monospace; font-size: 12px; line-height: 1.8; }
   .log-line { display: flex; gap: 8px; }
   .log-time { color: var(--muted); flex-shrink: 0; }
@@ -98,18 +90,15 @@ function getWebviewHTML() {
   .log-line.warn  .log-msg { color: var(--yellow); }
   .log-line.ok    .log-msg { color: var(--green); }
 
-  /* ── Settings ── */
   .settings-panel { padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
   .settings-group { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
   .settings-group h4 { color: var(--yellow); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
 
-  /* ── Status card ── */
   .status-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .stat { display: flex; flex-direction: column; gap: 2px; }
   .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; }
   .stat-value { font-size: 16px; font-weight: 700; color: var(--green); }
 
-  /* ── Spinner ── */
   .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--border); border-top-color: var(--accent2); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .hidden { display: none !important; }
@@ -122,7 +111,7 @@ function getWebviewHTML() {
 
 <div class="topbar">
   <span class="logo">⚡ WP AI Studio</span>
-  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">claude</span>
+  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">ai</span>
   <span class="site-badge" id="siteBadge">not connected</span>
   <button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="doStatus()">ping</button>
 </div>
@@ -184,7 +173,6 @@ function getWebviewHTML() {
 
     <div class="divider"></div>
 
-    <!-- Review area — shown after generation -->
     <div id="reviewArea" class="hidden">
       <div class="review-card">
         <h3 id="reviewTitle"></h3>
@@ -250,7 +238,7 @@ function getWebviewHTML() {
     <div class="settings-group">
       <h4>WordPress</h4>
       <div class="field-row"><label>Site URL</label><input id="s_wpUrl" placeholder="https://sourovdeb.com" /></div>
-      <div class="field-row"><label>Username</label><input id="s_wpUser" placeholder="sourovdeb@zohomail.com" /></div>
+      <div class="field-row"><label>Username</label><input id="s_wpUser" placeholder="your-username" /></div>
       <div class="field-row"><label>App Password</label><input id="s_wpPass" type="password" placeholder="xxxx xxxx xxxx xxxx xxxx xxxx" /></div>
       <div class="field-row"><label>Plugin Secret Key</label><input id="s_pluginKey" type="password" placeholder="your-plugin-key" /></div>
       <button class="btn btn-primary" onclick="testConnection()" style="align-self:flex-start;">Test Connection</button>
@@ -261,12 +249,12 @@ function getWebviewHTML() {
       <div class="field-row">
         <label>Provider</label>
         <select id="s_provider" onchange="updateProviderUI()">
-          <option value="claude">Claude (Anthropic)</option>
+          <option value="anthropic">Anthropic API</option>
           <option value="deepseek">DeepSeek</option>
-          <option value="ollama">Ollama (local)</option>
+          <option value="ollama">Ollama (local, free)</option>
         </select>
       </div>
-      <div id="s_claudeRow"   class="field-row"><label>Claude API Key</label><input id="s_claudeKey" type="password" placeholder="sk-ant-..." /></div>
+      <div id="s_anthropicRow" class="field-row"><label>Anthropic API Key</label><input id="s_anthropicKey" type="password" placeholder="sk-ant-..." /></div>
       <div id="s_deepseekRow" class="field-row hidden"><label>DeepSeek API Key</label><input id="s_deepseekKey" type="password" placeholder="sk-..." /></div>
       <div id="s_ollamaRow"   class="field-row hidden"><label>Ollama URL</label><input id="s_ollamaUrl" placeholder="http://localhost:11434" /></div>
       <div id="s_modelRow"    class="field-row hidden"><label>Model</label><input id="s_ollamaModel" placeholder="llama3" /></div>
@@ -296,18 +284,16 @@ const vscode = acquireVsCodeApi();
 let currentPost = null;
 let chatHistory = [];
 
-// ── Tab switching ─────────────────────────────────────────────────────────────
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach((t, i) => {
     const ids = ['chat','generate','posts','logs','settings'];
     t.classList.toggle('active', ids[i] === id);
   });
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(`view-${id}`).classList.add('active');
+  document.getElementById('view-' + id).classList.add('active');
   if (id === 'posts') loadPosts();
 }
 
-// ── Message from extension ────────────────────────────────────────────────────
 window.addEventListener('message', e => {
   const { cmd, data } = e.data;
   if (cmd === 'settings')      applySettings(data);
@@ -317,36 +303,35 @@ window.addEventListener('message', e => {
   if (cmd === 'review_post')   showReview(data);
   if (cmd === 'generating')    { setGenBusy(true); appendLog({level:'info', message:'Generating: ' + data.topic, time: now()}); }
   if (cmd === 'generate_error'){ setGenBusy(false); appendLog({level:'error', message: data.error, time: now()}); }
-  if (cmd === 'post_created')  { appendLog({level:'ok', message:`✓ Post created ID:${data.id}`, time: now()}); }
+  if (cmd === 'post_created')  { appendLog({level:'ok', message:'✓ Post created ID:' + data.id, time: now()}); }
   if (cmd === 'chat_reply')    { appendChatMsg('ai', data.reply); setChatBusy(false); }
   if (cmd === 'run_status')    doStatus();
 });
 
-// ── Settings ──────────────────────────────────────────────────────────────────
 function applySettings(d) {
   if (!d) return;
-  document.getElementById('s_wpUrl').value       = d.wordpressUrl  || '';
-  document.getElementById('s_wpUser').value      = d.wpUser        || '';
-  document.getElementById('s_wpPass').value      = d.wpAppPassword || '';
-  document.getElementById('s_pluginKey').value   = d.pluginKey     || '';
-  document.getElementById('s_provider').value    = d.aiProvider    || 'claude';
-  document.getElementById('s_claudeKey').value   = d.claudeKey     || '';
-  document.getElementById('s_deepseekKey').value = d.deepseekKey   || '';
-  document.getElementById('s_ollamaUrl').value   = d.ollamaUrl     || '';
-  document.getElementById('s_ollamaModel').value = d.ollamaModel   || '';
-  document.getElementById('s_status').value      = d.defaultStatus || 'draft';
-  document.getElementById('s_approval').checked  = d.approvalMode !== false;
-  document.getElementById('providerBadge').textContent = d.aiProvider || 'claude';
+  document.getElementById('s_wpUrl').value        = d.wordpressUrl  || '';
+  document.getElementById('s_wpUser').value       = d.wpUser        || '';
+  document.getElementById('s_wpPass').value       = d.wpAppPassword || '';
+  document.getElementById('s_pluginKey').value    = d.pluginKey     || '';
+  document.getElementById('s_provider').value     = d.aiProvider    || 'anthropic';
+  document.getElementById('s_anthropicKey').value = d.anthropicKey  || '';
+  document.getElementById('s_deepseekKey').value  = d.deepseekKey   || '';
+  document.getElementById('s_ollamaUrl').value    = d.ollamaUrl     || '';
+  document.getElementById('s_ollamaModel').value  = d.ollamaModel   || '';
+  document.getElementById('s_status').value       = d.defaultStatus || 'draft';
+  document.getElementById('s_approval').checked   = d.approvalMode !== false;
+  document.getElementById('providerBadge').textContent = d.aiProvider || 'anthropic';
   if (d.wordpressUrl) document.getElementById('siteBadge').textContent = new URL(d.wordpressUrl).hostname;
   updateProviderUI();
 }
 
 function updateProviderUI() {
   const p = document.getElementById('s_provider').value;
-  document.getElementById('s_claudeRow').classList.toggle('hidden',   p !== 'claude');
-  document.getElementById('s_deepseekRow').classList.toggle('hidden', p !== 'deepseek');
-  document.getElementById('s_ollamaRow').classList.toggle('hidden',   p !== 'ollama');
-  document.getElementById('s_modelRow').classList.toggle('hidden',    p !== 'ollama');
+  document.getElementById('s_anthropicRow').classList.toggle('hidden', p !== 'anthropic');
+  document.getElementById('s_deepseekRow').classList.toggle('hidden',  p !== 'deepseek');
+  document.getElementById('s_ollamaRow').classList.toggle('hidden',    p !== 'ollama');
+  document.getElementById('s_modelRow').classList.toggle('hidden',     p !== 'ollama');
 }
 
 function saveSettings() {
@@ -356,7 +341,7 @@ function saveSettings() {
     wpAppPassword: document.getElementById('s_wpPass').value.trim(),
     pluginKey:     document.getElementById('s_pluginKey').value.trim(),
     aiProvider:    document.getElementById('s_provider').value,
-    claudeKey:     document.getElementById('s_claudeKey').value.trim(),
+    anthropicKey:  document.getElementById('s_anthropicKey').value.trim(),
     deepseekKey:   document.getElementById('s_deepseekKey').value.trim(),
     ollamaUrl:     document.getElementById('s_ollamaUrl').value.trim(),
     ollamaModel:   document.getElementById('s_ollamaModel').value.trim(),
@@ -367,7 +352,6 @@ function saveSettings() {
 
 function testConnection() { doStatus(); switchTab('settings'); }
 
-// ── Status ────────────────────────────────────────────────────────────────────
 function doStatus() { vscode.postMessage({ cmd: 'site_status' }); }
 function applyStatus(d) {
   if (d.error) { appendLog({level:'error', message: 'Connection failed: ' + d.error, time: now()}); return; }
@@ -376,12 +360,11 @@ function applyStatus(d) {
   document.getElementById('statWP').textContent    = d.wp_version || '—';
   document.getElementById('statPosts').textContent = d.total_posts ?? '—';
   document.getElementById('statSched').textContent = d.scheduled_posts ?? '—';
-  appendLog({level:'ok', message:`Connected: ${d.site} | WP ${d.wp_version}`, time: now()});
+  appendLog({level:'ok', message:'Connected: ' + d.site + ' | WP ' + d.wp_version, time: now()});
   document.getElementById('siteBadge').textContent = d.site || 'connected';
   document.getElementById('siteBadge').style.color = 'var(--green)';
 }
 
-// ── Generate ──────────────────────────────────────────────────────────────────
 function doGenerate() {
   const topic = document.getElementById('genTopic').value.trim();
   if (!topic) { document.getElementById('genTopic').focus(); return; }
@@ -402,12 +385,12 @@ function setGenBusy(b) {
 function showReview(post) {
   setGenBusy(false);
   currentPost = post;
-  document.getElementById('reviewTitle').textContent   = post.title;
+  document.getElementById('reviewTitle').textContent    = post.title;
   document.getElementById('reviewSeoTitle').textContent = 'SEO: ' + (post.seo_title || post.title);
-  document.getElementById('reviewMeta').textContent    = post.meta_desc || '';
-  document.getElementById('reviewContent').innerHTML   = post.content || '';
+  document.getElementById('reviewMeta').textContent     = post.meta_desc || '';
+  document.getElementById('reviewContent').innerHTML    = post.content || '';
   const tagDiv = document.getElementById('reviewTags');
-  tagDiv.innerHTML = (post.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+  tagDiv.innerHTML = (post.tags || []).map(t => '<span class="tag">' + t + '</span>').join('');
   document.getElementById('reviewArea').classList.remove('hidden');
   document.getElementById('schedulerRow').classList.add('hidden');
   switchTab('generate');
@@ -431,7 +414,6 @@ function editTitle() {
 }
 function discardDraft() { document.getElementById('reviewArea').classList.add('hidden'); currentPost = null; }
 
-// ── Posts ─────────────────────────────────────────────────────────────────────
 function loadPosts() {
   const filter = document.getElementById('postFilter').value;
   document.getElementById('postsList').innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center;"><span class="spinner"></span> Loading...</div>';
@@ -441,22 +423,21 @@ function loadPosts() {
 function renderPosts(posts) {
   const el = document.getElementById('postsList');
   if (!posts.length) { el.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center;">No posts found</div>'; return; }
-  el.innerHTML = posts.map(p => `
-    <div class="post-item">
-      <span class="badge badge-${p.status}">${p.status}</span>
-      <span class="title" title="${p.title}">${p.title}</span>
-      <span style="color:var(--muted);font-size:11px;flex-shrink:0;">${p.scheduled.slice(0,10)}</span>
-      <button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="deletePost(${p.id})">✕</button>
-      <a href="${p.link}" style="color:var(--accent);font-size:11px;" title="View">↗</a>
-    </div>
-  `).join('');
+  el.innerHTML = posts.map(p =>
+    '<div class="post-item">' +
+    '<span class="badge badge-' + p.status + '">' + p.status + '</span>' +
+    '<span class="title" title="' + escHtml(p.title) + '">' + escHtml(p.title) + '</span>' +
+    '<span style="color:var(--muted);font-size:11px;flex-shrink:0;">' + p.scheduled.slice(0,10) + '</span>' +
+    '<button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="deletePost(' + p.id + ')">✕</button>' +
+    '<a href="' + p.link + '" style="color:var(--accent);font-size:11px;" title="View">↗</a>' +
+    '</div>'
+  ).join('');
 }
 
 function deletePost(id) {
   if (confirm('Delete post ID:' + id + '?')) vscode.postMessage({ cmd: 'delete_post', data: { id } });
 }
 
-// ── Chat ──────────────────────────────────────────────────────────────────────
 function sendChat() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
@@ -473,7 +454,7 @@ function chatKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault()
 function appendChatMsg(role, text) {
   const div = document.createElement('div');
   div.className = 'msg ' + role;
-  div.innerHTML = `<div class="msg-avatar">${role === 'user' ? '👤' : '🤖'}</div><div class="msg-bubble">${escHtml(text)}</div>`;
+  div.innerHTML = '<div class="msg-avatar">' + (role === 'user' ? '👤' : '🤖') + '</div><div class="msg-bubble">' + escHtml(text) + '</div>';
   const box = document.getElementById('chatMessages');
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
@@ -482,22 +463,19 @@ function appendChatMsg(role, text) {
 
 function setChatBusy(b) { document.getElementById('chatBtn').disabled = b; }
 
-// ── Logs ──────────────────────────────────────────────────────────────────────
 function appendLog(entry) {
   const el = document.getElementById('logsPanel');
   const div = document.createElement('div');
   div.className = 'log-line ' + (entry.level || 'info');
-  div.innerHTML = `<span class="log-time">${entry.time}</span><span class="log-msg">${escHtml(entry.message)}</span>`;
+  div.innerHTML = '<span class="log-time">' + entry.time + '</span><span class="log-msg">' + escHtml(entry.message) + '</span>';
   el.appendChild(div);
   el.scrollTop = el.scrollHeight;
 }
 function clearLogs() { document.getElementById('logsPanel').innerHTML = ''; }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
 function now() { return new Date().toLocaleTimeString(); }
 function escHtml(t) { return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// Init
 vscode.postMessage({ cmd: 'load_settings' });
 </script>
 </body>
