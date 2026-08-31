@@ -122,24 +122,24 @@ function getWebviewHTML() {
 
 <div class="topbar">
   <span class="logo">⚡ WP AI Studio</span>
-  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">claude</span>
+  <span class="provider-badge" id="providerBadge" onclick="switchTab('settings')">ai</span>
   <span class="site-badge" id="siteBadge">not connected</span>
   <button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="doStatus()">ping</button>
 </div>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('chat')">💬 Chat</div>
-  <div class="tab" onclick="switchTab('generate')">✍️ Generate</div>
-  <div class="tab" onclick="switchTab('posts')">📋 Posts</div>
-  <div class="tab" onclick="switchTab('logs')">📜 Logs</div>
-  <div class="tab" onclick="switchTab('settings')">⚙️ Settings</div>
+  <div class="tab active" onclick="switchTab('chat')">&#x1F4AC; Chat</div>
+  <div class="tab" onclick="switchTab('generate')">&#x270D; Generate</div>
+  <div class="tab" onclick="switchTab('posts')">&#x1F4CB; Posts</div>
+  <div class="tab" onclick="switchTab('logs')">&#x1F4DC; Logs</div>
+  <div class="tab" onclick="switchTab('settings')">&#x2699; Settings</div>
 </div>
 
 <!-- ── CHAT ── -->
 <div class="view active" id="view-chat" style="display:flex;flex-direction:column;">
   <div class="chat-messages" id="chatMessages">
     <div class="msg ai">
-      <div class="msg-avatar">🤖</div>
+      <div class="msg-avatar">&#x1F916;</div>
       <div class="msg-bubble">Hi! I'm your WordPress AI assistant. Ask me to plan posts, improve SEO, suggest topics, or generate content. What are you working on?</div>
     </div>
   </div>
@@ -178,13 +178,12 @@ function getWebviewHTML() {
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-purple" onclick="doGenerate()" id="genBtn">✨ Generate with AI</button>
+      <button class="btn btn-purple" onclick="doGenerate()" id="genBtn">&#x2728; Generate with AI</button>
       <span id="genSpinner" class="spinner hidden"></span>
     </div>
 
     <div class="divider"></div>
 
-    <!-- Review area — shown after generation -->
     <div id="reviewArea" class="hidden">
       <div class="review-card">
         <h3 id="reviewTitle"></h3>
@@ -195,11 +194,11 @@ function getWebviewHTML() {
         <div class="tag-list" id="reviewTags"></div>
         <div class="content-preview" id="reviewContent"></div>
         <div class="btn-row">
-          <button class="btn btn-green" onclick="approvePub()">✓ Publish Now</button>
+          <button class="btn btn-green" onclick="approvePub()">&#x2713; Publish Now</button>
           <button class="btn btn-primary" onclick="approveDraft()">Save as Draft</button>
-          <button class="btn btn-ghost" onclick="openScheduler()">🕐 Schedule</button>
-          <button class="btn btn-ghost" onclick="editTitle()">✏️ Edit Title</button>
-          <button class="btn btn-danger" onclick="discardDraft()">✕ Discard</button>
+          <button class="btn btn-ghost" onclick="openScheduler()">&#x1F550; Schedule</button>
+          <button class="btn btn-ghost" onclick="editTitle()">&#x270F; Edit Title</button>
+          <button class="btn btn-danger" onclick="discardDraft()">&#x2715; Discard</button>
         </div>
         <div id="schedulerRow" class="hidden" style="display:flex;gap:8px;align-items:center;">
           <input type="datetime-local" id="scheduleInput" style="flex:1;" />
@@ -218,7 +217,7 @@ function getWebviewHTML() {
       <option value="future">Scheduled only</option>
       <option value="draft">Drafts only</option>
     </select>
-    <button class="btn btn-ghost" onclick="loadPosts()" style="padding:5px 10px;">↻ Refresh</button>
+    <button class="btn btn-ghost" onclick="loadPosts()" style="padding:5px 10px;">&#x21BB; Refresh</button>
   </div>
   <div class="posts-panel" id="postsList">
     <div style="color:var(--muted);text-align:center;padding:20px;">Click Refresh to load posts</div>
@@ -240,17 +239,17 @@ function getWebviewHTML() {
 
     <div id="statusCard" class="hidden">
       <div class="status-card">
-        <div class="stat"><div class="stat-label">Site</div><div class="stat-value" id="statSite" style="font-size:12px;">—</div></div>
-        <div class="stat"><div class="stat-label">WP Version</div><div class="stat-value" id="statWP" style="font-size:12px;">—</div></div>
-        <div class="stat"><div class="stat-label">Published</div><div class="stat-value" id="statPosts">—</div></div>
-        <div class="stat"><div class="stat-label">Scheduled</div><div class="stat-value" id="statSched">—</div></div>
+        <div class="stat"><div class="stat-label">Site</div><div class="stat-value" id="statSite" style="font-size:12px;">&#x2014;</div></div>
+        <div class="stat"><div class="stat-label">WP Version</div><div class="stat-value" id="statWP" style="font-size:12px;">&#x2014;</div></div>
+        <div class="stat"><div class="stat-label">Published</div><div class="stat-value" id="statPosts">&#x2014;</div></div>
+        <div class="stat"><div class="stat-label">Scheduled</div><div class="stat-value" id="statSched">&#x2014;</div></div>
       </div>
     </div>
 
     <div class="settings-group">
       <h4>WordPress</h4>
       <div class="field-row"><label>Site URL</label><input id="s_wpUrl" placeholder="https://sourovdeb.com" /></div>
-      <div class="field-row"><label>Username</label><input id="s_wpUser" placeholder="sourovdeb@zohomail.com" /></div>
+      <div class="field-row"><label>Username</label><input id="s_wpUser" placeholder="your-wp-email" /></div>
       <div class="field-row"><label>App Password</label><input id="s_wpPass" type="password" placeholder="xxxx xxxx xxxx xxxx xxxx xxxx" /></div>
       <div class="field-row"><label>Plugin Secret Key</label><input id="s_pluginKey" type="password" placeholder="your-plugin-key" /></div>
       <button class="btn btn-primary" onclick="testConnection()" style="align-self:flex-start;">Test Connection</button>
@@ -261,12 +260,12 @@ function getWebviewHTML() {
       <div class="field-row">
         <label>Provider</label>
         <select id="s_provider" onchange="updateProviderUI()">
-          <option value="claude">Claude (Anthropic)</option>
+          <option value="anthropic">Anthropic API</option>
           <option value="deepseek">DeepSeek</option>
           <option value="ollama">Ollama (local)</option>
         </select>
       </div>
-      <div id="s_claudeRow"   class="field-row"><label>Claude API Key</label><input id="s_claudeKey" type="password" placeholder="sk-ant-..." /></div>
+      <div id="s_claudeRow"   class="field-row"><label>Anthropic API Key</label><input id="s_claudeKey" type="password" placeholder="sk-ant-..." /></div>
       <div id="s_deepseekRow" class="field-row hidden"><label>DeepSeek API Key</label><input id="s_deepseekKey" type="password" placeholder="sk-..." /></div>
       <div id="s_ollamaRow"   class="field-row hidden"><label>Ollama URL</label><input id="s_ollamaUrl" placeholder="http://localhost:11434" /></div>
       <div id="s_modelRow"    class="field-row hidden"><label>Model</label><input id="s_ollamaModel" placeholder="llama3" /></div>
@@ -287,7 +286,7 @@ function getWebviewHTML() {
       </label>
     </div>
 
-    <button class="btn btn-purple" onclick="saveSettings()">💾 Save All Settings</button>
+    <button class="btn btn-purple" onclick="saveSettings()">&#x1F4BE; Save All Settings</button>
   </div>
 </div>
 
@@ -296,18 +295,16 @@ const vscode = acquireVsCodeApi();
 let currentPost = null;
 let chatHistory = [];
 
-// ── Tab switching ─────────────────────────────────────────────────────────────
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach((t, i) => {
     const ids = ['chat','generate','posts','logs','settings'];
     t.classList.toggle('active', ids[i] === id);
   });
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(`view-${id}`).classList.add('active');
+  document.getElementById('view-' + id).classList.add('active');
   if (id === 'posts') loadPosts();
 }
 
-// ── Message from extension ────────────────────────────────────────────────────
 window.addEventListener('message', e => {
   const { cmd, data } = e.data;
   if (cmd === 'settings')      applySettings(data);
@@ -317,33 +314,32 @@ window.addEventListener('message', e => {
   if (cmd === 'review_post')   showReview(data);
   if (cmd === 'generating')    { setGenBusy(true); appendLog({level:'info', message:'Generating: ' + data.topic, time: now()}); }
   if (cmd === 'generate_error'){ setGenBusy(false); appendLog({level:'error', message: data.error, time: now()}); }
-  if (cmd === 'post_created')  { appendLog({level:'ok', message:`✓ Post created ID:${data.id}`, time: now()}); }
+  if (cmd === 'post_created')  { appendLog({level:'ok', message:'✓ Post created ID:' + data.id, time: now()}); }
   if (cmd === 'chat_reply')    { appendChatMsg('ai', data.reply); setChatBusy(false); }
   if (cmd === 'run_status')    doStatus();
 });
 
-// ── Settings ──────────────────────────────────────────────────────────────────
 function applySettings(d) {
   if (!d) return;
   document.getElementById('s_wpUrl').value       = d.wordpressUrl  || '';
   document.getElementById('s_wpUser').value      = d.wpUser        || '';
   document.getElementById('s_wpPass').value      = d.wpAppPassword || '';
   document.getElementById('s_pluginKey').value   = d.pluginKey     || '';
-  document.getElementById('s_provider').value    = d.aiProvider    || 'claude';
+  document.getElementById('s_provider').value    = d.aiProvider    || 'deepseek';
   document.getElementById('s_claudeKey').value   = d.claudeKey     || '';
   document.getElementById('s_deepseekKey').value = d.deepseekKey   || '';
   document.getElementById('s_ollamaUrl').value   = d.ollamaUrl     || '';
   document.getElementById('s_ollamaModel').value = d.ollamaModel   || '';
   document.getElementById('s_status').value      = d.defaultStatus || 'draft';
   document.getElementById('s_approval').checked  = d.approvalMode !== false;
-  document.getElementById('providerBadge').textContent = d.aiProvider || 'claude';
+  document.getElementById('providerBadge').textContent = d.aiProvider || 'deepseek';
   if (d.wordpressUrl) document.getElementById('siteBadge').textContent = new URL(d.wordpressUrl).hostname;
   updateProviderUI();
 }
 
 function updateProviderUI() {
   const p = document.getElementById('s_provider').value;
-  document.getElementById('s_claudeRow').classList.toggle('hidden',   p !== 'claude');
+  document.getElementById('s_claudeRow').classList.toggle('hidden',   p !== 'anthropic');
   document.getElementById('s_deepseekRow').classList.toggle('hidden', p !== 'deepseek');
   document.getElementById('s_ollamaRow').classList.toggle('hidden',   p !== 'ollama');
   document.getElementById('s_modelRow').classList.toggle('hidden',    p !== 'ollama');
@@ -367,7 +363,6 @@ function saveSettings() {
 
 function testConnection() { doStatus(); switchTab('settings'); }
 
-// ── Status ────────────────────────────────────────────────────────────────────
 function doStatus() { vscode.postMessage({ cmd: 'site_status' }); }
 function applyStatus(d) {
   if (d.error) { appendLog({level:'error', message: 'Connection failed: ' + d.error, time: now()}); return; }
@@ -376,12 +371,11 @@ function applyStatus(d) {
   document.getElementById('statWP').textContent    = d.wp_version || '—';
   document.getElementById('statPosts').textContent = d.total_posts ?? '—';
   document.getElementById('statSched').textContent = d.scheduled_posts ?? '—';
-  appendLog({level:'ok', message:`Connected: ${d.site} | WP ${d.wp_version}`, time: now()});
+  appendLog({level:'ok', message:'Connected: ' + d.site + ' | WP ' + d.wp_version, time: now()});
   document.getElementById('siteBadge').textContent = d.site || 'connected';
   document.getElementById('siteBadge').style.color = 'var(--green)';
 }
 
-// ── Generate ──────────────────────────────────────────────────────────────────
 function doGenerate() {
   const topic = document.getElementById('genTopic').value.trim();
   if (!topic) { document.getElementById('genTopic').focus(); return; }
@@ -407,7 +401,7 @@ function showReview(post) {
   document.getElementById('reviewMeta').textContent    = post.meta_desc || '';
   document.getElementById('reviewContent').innerHTML   = post.content || '';
   const tagDiv = document.getElementById('reviewTags');
-  tagDiv.innerHTML = (post.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+  tagDiv.innerHTML = (post.tags || []).map(t => '<span class="tag">' + t + '</span>').join('');
   document.getElementById('reviewArea').classList.remove('hidden');
   document.getElementById('schedulerRow').classList.add('hidden');
   switchTab('generate');
@@ -431,7 +425,6 @@ function editTitle() {
 }
 function discardDraft() { document.getElementById('reviewArea').classList.add('hidden'); currentPost = null; }
 
-// ── Posts ─────────────────────────────────────────────────────────────────────
 function loadPosts() {
   const filter = document.getElementById('postFilter').value;
   document.getElementById('postsList').innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center;"><span class="spinner"></span> Loading...</div>';
@@ -441,22 +434,21 @@ function loadPosts() {
 function renderPosts(posts) {
   const el = document.getElementById('postsList');
   if (!posts.length) { el.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center;">No posts found</div>'; return; }
-  el.innerHTML = posts.map(p => `
-    <div class="post-item">
-      <span class="badge badge-${p.status}">${p.status}</span>
-      <span class="title" title="${p.title}">${p.title}</span>
-      <span style="color:var(--muted);font-size:11px;flex-shrink:0;">${p.scheduled.slice(0,10)}</span>
-      <button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="deletePost(${p.id})">✕</button>
-      <a href="${p.link}" style="color:var(--accent);font-size:11px;" title="View">↗</a>
-    </div>
-  `).join('');
+  el.innerHTML = posts.map(p =>
+    '<div class="post-item">' +
+    '<span class="badge badge-' + p.status + '">' + p.status + '</span>' +
+    '<span class="title" title="' + escHtml(p.title) + '">' + escHtml(p.title) + '</span>' +
+    '<span style="color:var(--muted);font-size:11px;flex-shrink:0;">' + p.scheduled.slice(0,10) + '</span>' +
+    '<button class="btn btn-ghost" style="padding:3px 8px;font-size:11px;" onclick="deletePost(' + p.id + ')">✕</button>' +
+    '<a href="' + p.link + '" style="color:var(--accent);font-size:11px;" title="View">&#x2197;</a>' +
+    '</div>'
+  ).join('');
 }
 
 function deletePost(id) {
   if (confirm('Delete post ID:' + id + '?')) vscode.postMessage({ cmd: 'delete_post', data: { id } });
 }
 
-// ── Chat ──────────────────────────────────────────────────────────────────────
 function sendChat() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
@@ -473,7 +465,7 @@ function chatKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault()
 function appendChatMsg(role, text) {
   const div = document.createElement('div');
   div.className = 'msg ' + role;
-  div.innerHTML = `<div class="msg-avatar">${role === 'user' ? '👤' : '🤖'}</div><div class="msg-bubble">${escHtml(text)}</div>`;
+  div.innerHTML = '<div class="msg-avatar">' + (role === 'user' ? '&#x1F464;' : '&#x1F916;') + '</div><div class="msg-bubble">' + escHtml(text) + '</div>';
   const box = document.getElementById('chatMessages');
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
@@ -482,22 +474,19 @@ function appendChatMsg(role, text) {
 
 function setChatBusy(b) { document.getElementById('chatBtn').disabled = b; }
 
-// ── Logs ──────────────────────────────────────────────────────────────────────
 function appendLog(entry) {
   const el = document.getElementById('logsPanel');
   const div = document.createElement('div');
   div.className = 'log-line ' + (entry.level || 'info');
-  div.innerHTML = `<span class="log-time">${entry.time}</span><span class="log-msg">${escHtml(entry.message)}</span>`;
+  div.innerHTML = '<span class="log-time">' + entry.time + '</span><span class="log-msg">' + escHtml(entry.message) + '</span>';
   el.appendChild(div);
   el.scrollTop = el.scrollHeight;
 }
 function clearLogs() { document.getElementById('logsPanel').innerHTML = ''; }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
 function now() { return new Date().toLocaleTimeString(); }
 function escHtml(t) { return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// Init
 vscode.postMessage({ cmd: 'load_settings' });
 </script>
 </body>
