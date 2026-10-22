@@ -5,7 +5,7 @@ const vscode = require('vscode');
 let panel = null;
 const LOG_HISTORY = [];
 
-// ── Activation ────────────────────────────────────────────────────────────────
+// ── Activation ────────────────────────────────────────────────────────────────────────────────
 function activate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand('wpai.openPanel', () => openStudio(context)),
@@ -20,7 +20,7 @@ function activate(context) {
     if (cfg.get('wordpressUrl')) openStudio(context);
 }
 
-// ── Main Panel ────────────────────────────────────────────────────────────────
+// ── Main Panel ─────────────────────────────────────────────────────────────────────────────
 function openStudio(context) {
     if (panel) { panel.reveal(); return; }
 
@@ -53,7 +53,7 @@ function openStudio(context) {
     setTimeout(sendSettings, 300);
 }
 
-// ── Settings ──────────────────────────────────────────────────────────────────
+// ── Settings ──────────────────────────────────────────────────────────────────────────────
 function getConfig() {
     return vscode.workspace.getConfiguration('wpai');
 }
@@ -86,7 +86,7 @@ async function saveSettings(data) {
     sendSettings();
 }
 
-// ── Logging ───────────────────────────────────────────────────────────────────
+// ── Logging ───────────────────────────────────────────────────────────────────────────────
 function log(level, message, detail = '') {
     const entry = { level, message, detail, time: new Date().toLocaleTimeString() };
     LOG_HISTORY.push(entry);
@@ -94,7 +94,7 @@ function log(level, message, detail = '') {
     panel?.webview.postMessage({ cmd: 'log', data: entry });
 }
 
-// ── WordPress API Calls ───────────────────────────────────────────────────────
+// ── WordPress API Calls ──────────────────────────────────────────────────────────────────
 async function wpRequest(path, method = 'GET', body = null) {
     const c = getConfig();
     const url  = c.get('wordpressUrl').replace(/\/$/, '');
@@ -185,7 +185,7 @@ async function doSchedulePost({ postData, schedule }) {
     }
 }
 
-// ── AI Providers ──────────────────────────────────────────────────────────────
+// ── AI Providers ────────────────────────────────────────────────────────────────────────────
 async function callAI(systemPrompt, userPrompt) {
     const c = getConfig();
     const provider = c.get('aiProvider');
@@ -194,7 +194,7 @@ async function callAI(systemPrompt, userPrompt) {
     try {
         const fetch = (await import('node-fetch')).default;
 
-        if (provider === 'claude') {
+        if (provider === 'anthropic') {
             const res = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
                 headers: {
@@ -253,7 +253,7 @@ async function callAI(systemPrompt, userPrompt) {
     }
 }
 
-// ── Generate Post ─────────────────────────────────────────────────────────────
+// ── Generate Post ──────────────────────────────────────────────────────────────────────────
 async function doGenerate({ topic, tone = 'professional', wordCount = 600 }) {
     panel?.webview.postMessage({ cmd: 'generating', data: { topic } });
 
@@ -290,7 +290,7 @@ Return this exact JSON structure:
     }
 }
 
-// ── Chat ──────────────────────────────────────────────────────────────────────
+// ── Chat ─────────────────────────────────────────────────────────────────────────────────
 async function doChat({ message, history = [] }) {
     const system = `You are a WordPress and content strategy assistant for Sourov Deb's site sourovdeb.com.
 You help plan posts, improve SEO, suggest topics, and assist with English teaching content.
@@ -304,7 +304,7 @@ Be concise and practical. When suggesting posts, format them clearly.`;
         const fetch = (await import('node-fetch')).default;
         let reply = '';
 
-        if (c.get('aiProvider') === 'claude') {
+        if (c.get('aiProvider') === 'anthropic') {
             const res = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
                 headers: {
