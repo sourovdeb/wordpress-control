@@ -1,0 +1,32 @@
+name: Publish WordPress Posts
+
+# Fires when you push .md files inside the posts/ folder
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - 'posts/**/*.md'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # needed to detect which files changed vs last commit
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests PyYAML markdown
+
+      - name: Publish changed posts to WordPress
+        env:
+          WP_URL:       ${{ secrets.WP_URL }}
+          WP_API_KEY:   ${{ secrets.WP_API_KEY }}
+          CLAUDE_KEY:   ${{ secrets.CLAUDE_KEY }}
+        run: python tools/publish-from-markdown.py --changed-only
