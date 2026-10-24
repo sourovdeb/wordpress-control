@@ -7,7 +7,7 @@
   "engines": { "vscode": "^1.85.0" },
   "categories": ["Other"],
   "activationEvents": ["onStartupFinished"],
-  "main": "./src/extension.js",
+  "main": "./extension.js",
   "contributes": {
     "commands": [
       { "command": "wpai.openPanel",    "title": "WP AI: Open Studio"       },
@@ -15,7 +15,7 @@
       { "command": "wpai.siteStatus",   "title": "WP AI: Check Site Status" }
     ],
     "viewsContainers": {
-      "activitybar": [{ "id": "wp-ai-studio", "title": "WP AI Studio", "icon": "media/icon.svg" }]
+      "activitybar": [{ "id": "wp-ai-studio", "title": "WP AI Studio", "icon": "icon.svg" }]
     },
     "configuration": {
       "title": "WP AI Studio",

@@ -61,7 +61,7 @@ python3 wordpress_integration/sync_verification.py
 - Auto-expires after 7 days
 - Pushes only drafts (never auto-publishes)
 - Checks for exact title matches to prevent duplicates
-- API key required: `0767044896thevenet_` (configured in each script)
+- API key required: `<redacted deploy key>` (configured in each script)
 
 ---
 
